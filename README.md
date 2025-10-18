@@ -31,18 +31,42 @@ Conv-App is a simple expense tracking web application built with **Laravel 11**,
 
 git clone https://github.com/hebaAlajouri/conv-app.git
 cd conv-app
+
+
 2. **Install PHP dependencies:**
+
+
 composer install
+
+
 3. **Install Node.js dependencies:**
+
+
 npm install
+
+
 4. **Set up the environment file:**
+
+
 cp .env.example .env
 php artisan key:generate
+
+
 5. **Build frontend assets:**
+
+
 npm run dev 
+
+
 6. **Install and configure Sanctum (if not already installed via composer):**
+
+
 composer require laravel/sanctum
 php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
 php artisan migrate
+
+
 7. **Serve the application:**
+
+
 php artisan serve
