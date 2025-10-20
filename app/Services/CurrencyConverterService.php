@@ -10,19 +10,19 @@ class CurrencyConverterService
 {
     protected $client;
     protected $apiKey;
-    protected $baseUrl = 'https://open.er-api.com/v6/latest/'; // Or any other free API
+    protected $baseUrl = 'https://open.er-api.com/v6/latest/'; 
 
     public function __construct()
     {
         $this->client = new Client();
-        $this->apiKey = env('CURRENCY_API_KEY'); // You might not need this for open.er-api.com
+        $this->apiKey = env('CURRENCY_API_KEY'); 
     }
 
     public function getExchangeRates(string $baseCurrency): array
     {
         $cacheKey = 'currency_rates_' . strtoupper($baseCurrency);
 
-        return Cache::remember($cacheKey, 60 * 12, function () use ($baseCurrency) { // Cache for 12 hours
+        return Cache::remember($cacheKey, 60 * 12, function () use ($baseCurrency) { 
             try {
                 $response = $this->client->get("{$this->baseUrl}{$baseCurrency}");
                 $data = json_decode($response->getBody()->getContents(), true);
@@ -33,7 +33,7 @@ class CurrencyConverterService
             } catch (\Exception $e) {
                 Log::error("Failed to fetch currency rates for {$baseCurrency}: " . $e->getMessage());
             }
-            return []; // Return empty on failure
+            return []; 
         });
     }
 
@@ -50,7 +50,7 @@ class CurrencyConverterService
 
         if (empty($rates) || !isset($rates[$toCurrency])) {
             Log::warning("Could not convert {$fromCurrency} to {$toCurrency}. Using original amount.");
-            return $amount; // Fallback to original amount if conversion fails
+            return $amount; 
         }
 
         return $amount * $rates[$toCurrency];
